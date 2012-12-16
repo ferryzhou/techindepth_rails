@@ -31,3 +31,13 @@ group :test do
   # Pretty printed test output
   gem 'turn', :require => false
 end
+
+group :development, :test do
+  gem 'sqlite3'
+end
+
+group :production do
+  # gems specifically for Heroku go here
+  gem "pg"
+end
+
