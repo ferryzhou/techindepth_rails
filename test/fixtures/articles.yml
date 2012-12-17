@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  title: MyString
+  link: MyString
+  content: MyText
+  pubdate: 2012-12-16 20:00:30
+  magzine: 
+
+two:
+  title: MyString
+  link: MyString
+  content: MyText
+  pubdate: 2012-12-16 20:00:30
+  magzine: 

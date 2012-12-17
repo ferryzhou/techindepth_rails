@@ -1,0 +1,23 @@
+<h1>Listing magzines</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @magzines.each do |magzine| %>
+  <tr>
+    <td><%= magzine.name %></td>
+    <td><%= link_to 'Show', magzine %></td>
+    <td><%= link_to 'Edit', edit_magzine_path(magzine) %></td>
+    <td><%= link_to 'Destroy', magzine, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Magzine', new_magzine_path %>
