@@ -6,7 +6,8 @@
 </p>
 
 <p>
-  <%= link_to('View Original', @article.link) %>
+  <b>Original Link:</b>
+  <%= @article.link %>
 </p>
 
 <p>
@@ -20,7 +21,8 @@
 </p>
 
 <p>
-  <%= @article.content.html_safe %>
+  <b>Content:</b>
+  <%= @article.content %>
 </p>
 
 
