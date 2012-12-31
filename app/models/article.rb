@@ -16,4 +16,8 @@ class Article < ActiveRecord::Base
     end
   end
   
+  def Article.push_to_wp
+    
+  end
+  
 end
