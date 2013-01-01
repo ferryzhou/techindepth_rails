@@ -19,11 +19,15 @@ class WpXmlrpc
 
 end
 
-wp = WpXmlrpc.new
-wp.publish({
-  'title' => 'hello', 
-  'description' => 'ruby', 
-  'mt_keywords' => ['testkw'],
-  'dateCreated' => XMLRPC::DateTime.new(2012, 12, 19, 4, 5, 6)
+def show_wpxmlrpc
+  wp = WpXmlrpc.new
+  p wp.publish({
+    'title' => 'hello', 
+    'description' => 'ruby', 
+    'mt_keywords' => ['testkw'],
+    'dateCreated' => XMLRPC::DateTime.new(2012, 12, 19, 4, 5, 6)
   })
-p wp.get_recent_posts
+  p wp.get_recent_posts
+end
+
+show_wpxmlrpc
