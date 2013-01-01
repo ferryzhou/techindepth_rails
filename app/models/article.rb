@@ -5,6 +5,7 @@ class Article < ActiveRecord::Base
   belongs_to :magzine
   
   def Article.crawl_contents
+    p "crawling full content ..........."
     Article.where(:content => nil).each do |article|
       begin
         p "crawling #{article.link}"
@@ -18,6 +19,7 @@ class Article < ActiveRecord::Base
   end
   
   def Article.push_to_wp
+    p "pushing stuff to wordpress ........"
     wp = WpXmlrpc.new
     Article.where(:wpid => nil).each do |article|
       p "pushing #{article.title}"

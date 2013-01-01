@@ -30,4 +30,4 @@ def show_wpxmlrpc
   p wp.get_recent_posts
 end
 
-show_wpxmlrpc
+
