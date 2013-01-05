@@ -21,11 +21,12 @@ class TechInDepthApp
     crawl_links
     crawl_contents
     #push_to_wp
+    'success'
   end
 
   def crawl_links
     p "crawling links ............."
-    sources = ['163', 'sina', 'ifeng', 'yahoo']
+    sources = ['163']
     sources.each do |source|
       nitems = get_indepth_items(source)
       p "get #{nitems.size} items from #{source}"
@@ -69,7 +70,7 @@ class TechInDepthApp
         article.save
         p 'success'
       rescue => e
-        p e
+        p e.backtrace
       end
     end
   end
