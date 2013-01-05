@@ -7,7 +7,8 @@
 #         however sometimes there are no magzine name or date
 #      anyway, we assume url and title are unique to avoid duplication
 #   secondly, extract each article content,
-#      we will get content, magzine name, title, date, and author
+#      we will get content, magzine name, title, date, and
+#      other data: author, img, discussion count, sharing count,
 #
 
 require_relative 'retrieve_indepth_data.rb'
@@ -19,31 +20,32 @@ class TechInDepthApp
   def run
     crawl_links
     crawl_contents
-    push_to_wp
+    #push_to_wp
   end
 
   def crawl_links
     p "crawling links ............."
-    magzines = ['163', 'sina', 'ifeng', 'yahoo']
-    magzines.each do |mag|
-      nitems = get_indepth_items(mag)
-      p "get #{nitems.size} items from #{mag}"
+    sources = ['163', 'sina', 'ifeng', 'yahoo']
+    sources.each do |source|
+      nitems = get_indepth_items(source)
+      p "get #{nitems.size} items from #{source}"
       nitems.each { |nitem| add_link_to_db(nitem) }
     end
   end
   
   # if exist, ignore
   def add_link_to_db(item)
-    mag = Magzine.where(:name => item['source']).first
+    mag = Magzine.where(:name => item['magzine']).first
     if mag.nil?
-      mag = Magzine.create(:name => item['source'])
+      mag = Magzine.create(:name => item['magzine'])
     end
     if mag.articles.where(:title => item['title']).empty?
       p "adding article #{item['title']} ........"
       mag.articles.create(
         :title => item['title'], 
         :link => item['link'],
-        :pubdate => item['pubdate']
+        :pubdate => item['pubdate'],
+        :source => item['source']
         )
     end
   end
@@ -54,13 +56,26 @@ class TechInDepthApp
     Article.where(:content => nil).each do |article|
       begin
         p "crawling #{article.link}"
-        article.content = htmcont(article.link)
+        c = get_indepth_content(article.source, article.link)
+        article.content = c['content']
+        article.author = c['author']
+        if c['magzine'] #
+          mag = Magzine.where(:name => c['magzine']).first
+          if mag.nil?
+            mag = Magzine.create(:name => item['magzine'])
+          end
+          article.magzine = mag
+        end
         article.save
         p 'success'
       rescue => e
         p e
       end
     end
+  end
+  
+  def clear_all
+    Magzine
   end
   
   def push_to_wp

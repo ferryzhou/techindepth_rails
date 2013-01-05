@@ -5,8 +5,14 @@ require 'nokogiri'
 require 'date'
 require 'json'
 
-def get_indepth_items(name)
-  eval("get_#{name}_items")
+def get_indepth_items(source)
+  eval("get_#{source}_items")
+end
+
+def get_indepth_content(source, link)
+  p "get indepth content from #{source}"
+  eval("get_#{source}_content(link)")
+  #get_163_content(link)
 end
 
 def get_163_items
@@ -17,13 +23,15 @@ doc = Nokogiri::HTML(content)
 
 nitems = Array.new
 doc.search('div.group.clearfix').each do |group|
-  source = group.search('h5').first.content
+  magzine = group.search('h5').first.content
+  magzine = 'unknown' if magzine.length > 10
   group.search('ul li').each do |item|
     nitem = Hash.new
     a = item.search('a').first
+    nitem['source'] = '163'
     nitem['link'] = a['href']
     nitem['title'] = a.content
-    nitem['source'] = source
+    nitem['magzine'] = magzine
     nitem['pubdate'] = DateTime.parse(item.search('span').first.content)
     nitems.push(nitem)
   end
@@ -32,6 +40,26 @@ end
 nitems
 
 end
+
+def get_163_content(link)
+  content = open(link).read
+  doc = Nokogiri::HTML(content)
+  content = doc.search('#endText').first
+  content.search('iframe').each { |n| n.remove }
+  content.search('p').each { |p| p.name = 'div'}
+  c = Hash.new
+  c['content'] = content.to_html
+  c['author']  = content.css('img.icon').first.attribute('alt')
+  c['magzine'] = doc.search('.endContent').css('a').first.text
+    #discussion = doc.css('script').text
+    #p discussion
+    #discussion_count = discussion ? discussion.to_i : -1
+    #discussion = doc.search('#endpageUrl1').to_html
+    #p discussion
+    #c['discussion_count'] = discussion_count
+  c
+end
+
 
 def get_sina_items
 
@@ -45,7 +73,7 @@ nitems = doc.search('ul li').collect do |item|
   nitem['link'] = a['href']
   nitem['title'] = a.content
   span_segs = item.search('span').first.content.split(' ')
-  nitem['source'] = span_segs.first.gsub(/[(《》杂志]/, '')
+  nitem['magzine'] = span_segs.first.gsub(/[(《》杂志]/, '')
   asegs = a['href'].split('/')
   nitem['pubdate'] = DateTime.parse(asegs[-2] + 'T' + span_segs.last)
   nitem
@@ -64,7 +92,7 @@ nitems = doc.search('div.blockL ul.newsList.f14 li').collect do |item|
   a = item.search('a').first
   nitem['link'] = a['href']
   asegs = a.content.split(']')
-  nitem['source'] = asegs.first.gsub(/\[/, '')
+  nitem['magzine'] = asegs.first.gsub(/\[/, '')
   nitem['title'] = asegs.last.strip
   nitem['pubdate'] = DateTime.parse(item.search('span').first.content)
   nitem
@@ -82,7 +110,7 @@ nitems = doc.search('ul.list_body li').collect do |item|
   a = item.search('a').first
   nitem['link'] = a['href']
   nitem['title'] = a.content
-  nitem['source'] = ''
+  nitem['magzine'] = ''
   nitem['pubdate'] = DateTime.strptime(item.search('span').first.content, '%Y%m%d')
   nitem
 end
