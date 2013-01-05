@@ -57,10 +57,14 @@ def get_163_content(link)
   content.search('p').each { |p| p.name = 'div'}
   content.css('img.icon').each { |p| p.parent.remove }
   
+  img = content.search('img').first
+  img = img.attribute('src') if img
+  
   c = Hash.new
   c['content'] = content.to_html
   #c['author']  = content.css('img.icon').first.attribute('alt')
   c['magzine'] = doc.search('.endContent').css('a').first.text
+  c['img'] = img
     #discussion = doc.css('script').text
     #p discussion
     #discussion_count = discussion ? discussion.to_i : -1

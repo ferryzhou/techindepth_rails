@@ -3,9 +3,9 @@ class ArticlesController < ApplicationController
   # GET /articles.json
   def index
     if params[:m]
-      @articles = Magzine.where(:name => params[:m]).first.articles
+      @articles = Magzine.where(:name => params[:m]).first.articles.order("pubdate DESC")
     else
-      @articles = Article.all
+      @articles = Article.order("pubdate DESC")
     end
 
     respond_to do |format|

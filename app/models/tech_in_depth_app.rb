@@ -46,7 +46,8 @@ class TechInDepthApp
         :title => item['title'], 
         :link => item['link'],
         :pubdate => item['pubdate'],
-        :source => item['source']
+        :source => item['source'],
+        :img => item['img']
         )
     end
   end
