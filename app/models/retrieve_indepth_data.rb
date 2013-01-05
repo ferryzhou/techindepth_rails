@@ -44,19 +44,19 @@ end
 def get_163_content(link)
   content = open(link).read
   doc = Nokogiri::HTML(content)
-  content = doc.search('#endText').first
-  content.search('iframe').each { |n| n.remove }
-  content.search('p').each { |p| p.name = 'div'}
-  
   el = doc.search("[text()*='下一页']").first
+  
   if not el.nil? #multi page
     link = "#{link[0...-5]}_all.html"
     content = open(link).read
     doc = Nokogiri::HTML(content)
-    content = doc.search('#endText').first
-    content.search('iframe').each { |n| n.remove }
-    content.search('p').each { |p| p.name = 'div'}
   end
+  
+  content = doc.search('#endText').first
+  content.search('iframe').each { |n| n.remove }
+  content.search('p').each { |p| p.name = 'div'}
+  content.css('img.icon').each { |p| p.parent.remove }
+  
   c = Hash.new
   c['content'] = content.to_html
   #c['author']  = content.css('img.icon').first.attribute('alt')
