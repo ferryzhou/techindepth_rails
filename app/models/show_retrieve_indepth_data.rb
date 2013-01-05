@@ -7,4 +7,4 @@ p a.to_json
 
 #p get_163_items.to_json
 
-p "#{link[0...-5]}_all.html"
+#p "#{link[0...-5]}_all.html" # show multi-page link generation

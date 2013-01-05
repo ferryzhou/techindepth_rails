@@ -60,17 +60,19 @@ class TechInDepthApp
         c = get_indepth_content(article.source, article.link)
         article.content = c['content']
         article.author = c['author']
-        if c['magzine'] #
-          mag = Magzine.where(:name => c['magzine']).first
-          if mag.nil?
-            mag = Magzine.create(:name => item['magzine'])
+        if article.magzine.name == 'unknown'
+          if c['magzine'] #
+            mag = Magzine.where(:name => c['magzine']).first
+            if mag.nil?
+              mag = Magzine.create(:name => c['magzine'])
+            end
+            article.magzine = mag
           end
-          article.magzine = mag
         end
         article.save
         p 'success'
       rescue => e
-        p e.backtrace
+        p e.backtrace.join('\n')
       end
     end
   end
