@@ -1,6 +1,14 @@
 # this is the main file
 # this application requires activerecord model Magzine and Article
 # see migrations and schema
+# crawl several sites:
+#   first extract links from list page
+#      usually, we will get title, magzine name, url and date
+#         however sometimes there are no magzine name or date
+#      anyway, we assume url and title are unique to avoid duplication
+#   secondly, extract each article content,
+#      we will get content, magzine name, title, date, and author
+#
 
 require_relative 'retrieve_indepth_data.rb'
 require_relative 'htmcont.rb'
