@@ -14,7 +14,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
-gem 'therubyracer'
+gem 'therubyracer', '0.9.9'
 gem 'nokogiri'
 
 # Use unicorn as the web server
