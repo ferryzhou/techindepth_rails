@@ -1,5 +1,9 @@
 TechindepthRails::Application.routes.draw do
   resources :articles
+  
+  match '/feed' => 'articles#feed',
+    :as => :feed,
+    :defaults => { :format => 'atom' }
 
   resources :magzines
 

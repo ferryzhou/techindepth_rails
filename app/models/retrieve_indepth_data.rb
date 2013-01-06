@@ -63,7 +63,7 @@ def get_163_content(link)
   c = Hash.new
   c['content'] = content.to_html
   #c['author']  = content.css('img.icon').first.attribute('alt')
-  c['magzine'] = doc.search('.endContent').css('a').first.text
+  #c['magzine'] = doc.search('.endContent').css('a').first.text
   c['img'] = img
     #discussion = doc.css('script').text
     #p discussion
