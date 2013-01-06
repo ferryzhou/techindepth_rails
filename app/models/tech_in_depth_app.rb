@@ -46,8 +46,7 @@ class TechInDepthApp
         :title => item['title'], 
         :link => item['link'],
         :pubdate => item['pubdate'],
-        :source => item['source'],
-        :img => item['img']
+        :source => item['source']
         )
     end
   end
@@ -70,6 +69,7 @@ class TechInDepthApp
             article.magzine = mag
           end
         end
+        article.img = c['img']
         article.save
         p 'success'
       rescue => e
