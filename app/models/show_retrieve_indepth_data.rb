@@ -4,9 +4,10 @@ require_relative 'retrieve_indepth_data.rb'
 #link = 'http://tech.163.com/12/0214/11/7Q7JBVN70009387H.html' # multi pages
 #link = 'http://tech.163.com/12/1010/10/8DERTQDI000940FL.html' # has image
 #link = 'http://tech.163.com/13/0104/13/8KCJP4HC0009387B.html' #failed once
-link = 'http://tech.163.com/11/0818/14/7BOF8JFT0009387M.html'
-a = get_163_content(link)
-p a.to_json
+
+#link = 'http://tech.163.com/11/0818/14/7BOF8JFT0009387M.html'
+#a = get_163_content(link)
+#p a.to_json
 
 #p get_163_items.to_json
 
