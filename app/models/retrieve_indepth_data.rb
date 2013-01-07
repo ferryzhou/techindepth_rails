@@ -42,6 +42,8 @@ nitems
 end
 
 def get_163_content(link)
+  
+  p "retrieving content from 163 with #{link} ...."
   content = open(link).read
   doc = Nokogiri::HTML(content)
   el = doc.search("[text()*='下一页']").first
