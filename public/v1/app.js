@@ -1,10 +1,27 @@
 //(function ($) {
 
-    var Page = Backbone.Model.extend({
-        defaults:{
-            articles: [],
+    function get_pages_from_articles(articles) {
+      console.log(articles.length);
+      var pages = [];
+      for (var i = 0; i < 3; i++) {
+        var page = []; var aas = [];
+        for (var j = 0; j < 5; j++) {
+          aas[j] = articles[i*5+j];
         }
-    });
+        page.articles = aas;
+        console.log(page.articles.length);
+        pages[i] = page;
+      }
+      return pages;
+    }
+    
+  $.getJSON('/articles.json', function(data) {
+  
+    var pages = get_pages_from_articles(data);
+    
+    var Page = Backbone.Model.extend({ defaults:{ articles: [] }  });
+    
+    var Pages = Backbone.Collection.extend({  model:Page  });
 
     var PageView = Backbone.View.extend({
         tagName:"div",
@@ -19,25 +36,32 @@
         }
     });
     
-    $.getJSON('/articles.json?m=中国企业家', function(data) {
-    var page = new Page({
-      articles: data
+    var PagesView = Backbone.View.extend({
+        el:$("#pages"),
+
+        initialize:function(){
+            this.collection = new Pages(pages);
+            this.render();
+            $('#pages').replaceWith(this.el.children);
+        },
+
+        render: function(){
+            var that = this;
+            _.each(this.collection.models, function(item){
+                that.renderPage(item);
+            }, this);
+
+        },
+
+        renderPage:function(item){
+            var pageView = new PageView({ model: item });
+            this.$el.append(pageView.render().el);
+        }
     });
 
-    var pageView = new PageView({
-        model: page
-    });
-
-    function show_page() {
-      $("#exp").html(pageView.render().el.children);
-      $('#cell1').attr('class', 'box w-25 h-70');
-      $('#cell2').attr('class', 'box w-50 h-70 box-b-l box-b-r');
-      $('#cell3').attr('class', 'box w-25 h-70');
-      $('#cell4').attr('class', 'box w-50 h-30 box-b-r title-top');
-      $('#cell5').attr('class', 'box w-50 h-30 title-top');
-    }
-
-    show_page();
+    var pagesView = new PagesView();
+    
+    // start flip processing
     
 			var $container 	= $( '#flip' ),
 				$pages		= $container.children().hide();
