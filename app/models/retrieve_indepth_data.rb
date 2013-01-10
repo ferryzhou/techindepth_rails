@@ -56,7 +56,7 @@ def get_163_content(link)
   
   content = doc.search('#endText').first
   content.search('iframe').each { |n| n.remove }
-  content.search('p').each { |p| p.name = 'div'}
+  #content.search('p').each { |p| p.name = 'div'}
   content.css('img.icon').each { |p| p.parent.remove }
   
   img = content.search('img').first
