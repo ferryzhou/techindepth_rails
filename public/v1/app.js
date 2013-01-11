@@ -3,7 +3,7 @@
     function get_pages_from_articles(articles) {
       console.log(articles.length);
       var pages = [];
-      for (var i = 0; i < 3; i++) {
+      for (var i = 0; i < Math.floor(articles.length/5); i++) {
         var page = []; var aas = [];
         for (var j = 0; j < 5; j++) {
           aas[j] = articles[i*5+j];
