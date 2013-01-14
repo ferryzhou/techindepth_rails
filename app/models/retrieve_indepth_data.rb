@@ -99,6 +99,10 @@ end
 nitems
 end
 
+def get_sina_content(link)
+  
+end
+                                          
 def get_ifeng_items
 page_url = 'http://tech.ifeng.com/magazine/'
 
