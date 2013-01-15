@@ -5,7 +5,7 @@ class ArticlesController < ApplicationController
     if params[:m]
       @articles = Magzine.where(:name => params[:m]).first.articles.order("pubdate DESC")
     else
-      @articles = Article.order("pubdate DESC")
+      @articles = Article.paginate(:page => params[:page], :per_page => 5).order("pubdate DESC")
     end
 
     respond_to do |format|

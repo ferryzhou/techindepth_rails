@@ -16,6 +16,7 @@ end
 gem 'jquery-rails'
 gem 'therubyracer', '0.9.9'
 gem 'nokogiri'
+gem 'will_paginate', '~> 3.0'
 
 # Use unicorn as the web server
 # gem 'unicorn'
