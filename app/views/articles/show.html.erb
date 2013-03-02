@@ -1,23 +1,12 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Title:</b>
-  <%= @article.title %>
-</p>
+<div class='title'> <%= @article.title %> </div>
 
-<p>
-  <%= link_to('View Original', @article.link) %>
-</p>
-
-<p>
-  <b>Pubdate:</b>
-  <%= @article.pubdate %>
-</p>
-
-<p>
-  <b>Magzine:</b>
+<div style='font-size:13px;'>
+  <%= link_to('View Original', @article.link) %> |
+  <%= @article.pubdate.strftime('%m/%d/%Y') %> | 
   <%= @article.magzine.name %>
-</p>
+</div>
 
 <p>
   <%= @article.content.html_safe %>

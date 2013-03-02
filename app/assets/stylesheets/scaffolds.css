@@ -2,14 +2,16 @@ body {
   background-color: #fff;
   color: #333;
   font-family: verdana, arial, helvetica, sans-serif;
-  font-size: 13px;
-  line-height: 18px;
+  font-size: 16px;
+  line-height: 1.625em;
+  background-color: #fafafa;
+  margin:10px;
 }
 
 p, ol, ul, td {
   font-family: verdana, arial, helvetica, sans-serif;
-  font-size: 13px;
-  line-height: 18px;
+  font-size: 16px;
+  line-height: 1.625em;
 }
 
 pre {
@@ -66,4 +68,11 @@ div {
     font-size: 12px;
     list-style: square;
   }
+}
+
+.title {
+font-weight: bold;
+font-size: 20px;
+text-align: center;
+margin:20px;
 }
