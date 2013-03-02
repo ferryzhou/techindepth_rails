@@ -5,7 +5,7 @@ xml.rss :version => "2.0" do
     xml.description "hope you can enjoy"
     xml.link articles_url
 
-    for post in @news_items
+    for post in @news_items[0...20]
       xml.item do
         xml.title post.title
         xml.description post.content
