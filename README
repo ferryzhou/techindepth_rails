@@ -8,3 +8,5 @@ rails generate scaffold Magzine name:string
 rails generate scaffold Article title:string link:string content:text pubdate:datetime  magzine:references
 
 articles are duplicated if title and magzine name are the same
+
+rake crawl_n_push
