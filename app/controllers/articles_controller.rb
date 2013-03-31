@@ -3,9 +3,9 @@ class ArticlesController < ApplicationController
   # GET /articles.json
   def index
     if params[:m]
-      @articles = Magzine.where(:name => params[:m]).first.articles.order("pubdate DESC")
+      @articles = Magzine.where(:name => params[:m]).first.articles.paginate(:page => params[:page], :per_page => 15).order("pubdate DESC")
     else
-      @articles = Article.paginate(:page => params[:page], :per_page => 5).order("pubdate DESC")
+      @articles = Article.paginate(:page => params[:page], :per_page => 15).order("pubdate DESC")
     end
 
     respond_to do |format|

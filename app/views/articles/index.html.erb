@@ -1,5 +1,3 @@
-<h1>Listing articles</h1>
-
 <table>
   <tr>
     <th>Title</th>
@@ -7,8 +5,6 @@
     <th>Pubdate</th>
     <th>Magzine</th>
   </tr>
-
-<%= will_paginate @articles %>
 
 <% @articles.each do |article| %>
   <tr>
@@ -21,4 +17,6 @@
 </table>
 
 <br />
+
+<%= will_paginate @articles %>
 
