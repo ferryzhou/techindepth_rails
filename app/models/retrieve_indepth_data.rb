@@ -81,61 +81,74 @@ end
 
 def get_sina_items
 
-page_url = 'http://roll.tech.sina.com.cn/iframe_famous/index.shtml'
+  page_url = 'http://roll.tech.sina.com.cn/iframe_famous/index.shtml'
 
-doc = Nokogiri::HTML(open(page_url))
+  doc = Nokogiri::HTML(open(page_url))
 
-nitems = doc.search('ul li').collect do |item|
-  nitem = Hash.new
-  a = item.search('a').first
-  nitem['link'] = a['href']
-  nitem['title'] = a.content
-  span_segs = item.search('span').first.content.split(' ')
-  nitem['magzine'] = span_segs.first.gsub(/[(《》杂志]/, '')
-  asegs = a['href'].split('/')
-  nitem['pubdate'] = DateTime.parse(asegs[-2] + 'T' + span_segs.last)
-  nitem
-end
+  nitems = doc.search('ul li').collect do |item|
+    nitem = Hash.new
+    a = item.search('a').first
+    nitem['link'] = a['href']
+    nitem['title'] = a.content
+    span_segs = item.search('span').first.content.split(' ')
+    nitem['magzine'] = span_segs.first.gsub(/[(《》杂志]/, '')
+    asegs = a['href'].split('/')
+    nitem['pubdate'] = DateTime.parse(asegs[-2] + 'T' + span_segs.last)
+    nitem
+  end
 
-nitems
+  nitems
 end
 
 def get_sina_content(link)
   
+  p "retrieving content from sina with #{link} ...."
+  content = open(link).read
+  doc = Nokogiri::HTML(content)
+
+  artibody = doc.search('#artibody').first
+  img = artibody.search('img').first
+  img = img.attribute('src').text if img
+  
+  c = Hash.new
+  c['content'] = artibody.to_html
+  c['img'] = img
+  c
 end
                                           
 def get_ifeng_items
-page_url = 'http://tech.ifeng.com/magazine/'
 
-doc = Nokogiri::HTML(open(page_url))
+  page_url = 'http://tech.ifeng.com/magazine/'
 
-nitems = doc.search('div.blockL ul.newsList.f14 li').collect do |item|
-  nitem = Hash.new
-  a = item.search('a').first
-  nitem['link'] = a['href']
-  asegs = a.content.split(']')
-  nitem['magzine'] = asegs.first.gsub(/\[/, '')
-  nitem['title'] = asegs.last.strip
-  nitem['pubdate'] = DateTime.parse(item.search('span').first.content)
-  nitem
-end
-nitems
+  doc = Nokogiri::HTML(open(page_url))
+
+  nitems = doc.search('div.blockL ul.newsList.f14 li').collect do |item|
+    nitem = Hash.new
+    a = item.search('a').first
+    nitem['link'] = a['href']
+    asegs = a.content.split(']')
+    nitem['magzine'] = asegs.first.gsub(/\[/, '')
+    nitem['title'] = asegs.last.strip
+    nitem['pubdate'] = DateTime.parse(item.search('span').first.content)
+    nitem
+  end
+  nitems
 end
 
 def get_yahoo_items
-page_url = 'http://tech.cn.yahoo.com/shendu/'
+  page_url = 'http://tech.cn.yahoo.com/shendu/'
 
-doc = Nokogiri::HTML(open(page_url))
+  doc = Nokogiri::HTML(open(page_url))
 
-nitems = doc.search('ul.list_body li').collect do |item|
-  nitem = Hash.new
-  a = item.search('a').first
-  nitem['link'] = a['href']
-  nitem['title'] = a.content
-  nitem['magzine'] = ''
-  nitem['pubdate'] = DateTime.strptime(item.search('span').first.content, '%Y%m%d')
-  nitem
-end
-nitems
+  nitems = doc.search('ul.list_body li').collect do |item|
+    nitem = Hash.new
+    a = item.search('a').first
+    nitem['link'] = a['href']
+    nitem['title'] = a.content
+    nitem['magzine'] = ''
+    nitem['pubdate'] = DateTime.strptime(item.search('span').first.content, '%Y%m%d')
+    nitem
+  end
+  nitems
 end
 
