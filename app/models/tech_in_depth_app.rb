@@ -26,7 +26,7 @@ class TechInDepthApp
 
   def crawl_links
     p "crawling links ............."
-    sources = ['163']
+    sources = ['163', 'sina']
     sources.each do |source|
       nitems = get_indepth_items(source)
       p "get #{nitems.size} items from #{source}"

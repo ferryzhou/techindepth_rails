@@ -19,8 +19,10 @@ end
 
 def show_sina
   #p get_sina_items().to_json
-  link = 'http://tech.sina.com.cn/it/2013-03-28/15288191356.shtml'
-  p = get_sina_content(link).to_json
+  #link = 'http://tech.sina.com.cn/it/2013-03-28/15288191356.shtml' # no image
+  link = 'http://tech.sina.com.cn/i/2013-03-08/11408126599.shtml' # has image
+  a = get_sina_content(link)
+  p a.to_json
 end
 
-show_sina()
+#show_sina()
