@@ -6,7 +6,7 @@ class MagzinesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @magzines }
+      format.json { render json: @magzines, :callback => params[:callback]}
     end
   end
 
