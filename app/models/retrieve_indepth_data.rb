@@ -88,9 +88,11 @@ def get_sina_items
   doc = Nokogiri::HTML(open(page_url))
 
   nitems = doc.search('ul li').collect do |item|
+    p item.to_s
     nitem = Hash.new
     a = item.search('a').first
     p a.to_s
+    p item.search('span').first.to_s
     nitem['source'] = 'sina'
     nitem['link'] = a['href']
     nitem['title'] = a.content
@@ -98,6 +100,7 @@ def get_sina_items
     nitem['magzine'] = span_segs.first.gsub(/[(《》杂志]/, '')
     asegs = a['href'].split('/')
     nitem['pubdate'] = DateTime.parse(asegs[-2] + 'T' + span_segs.last)
+    p nitem.to_s
     nitem
   end
 
