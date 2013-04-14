@@ -79,7 +79,7 @@ def get_163_content(link)
 end
 
 
-# gb2312
+# gb2312 -> gbk
 def get_sina_items
 
   p 'get sina items .....'
@@ -96,8 +96,8 @@ def get_sina_items
   
   doc = Nokogiri::HTML(content, nil, 'gbk')
   
-  p doc.to_s
-  p doc.encoding
+  #p doc.to_s
+  #p doc.encoding
   p doc.errors
   
   items = doc.search('ul li')
@@ -110,8 +110,8 @@ def get_sina_items
     nitem = Hash.new
     begin
       a = item.search('a').first
-      p a.to_s
-      p item.search('span').first.to_s
+      #p a.to_s
+      #p item.search('span').first.to_s
       nitem['source'] = 'sina'
       nitem['link'] = a['href']
       nitem['title'] = a.content
@@ -135,7 +135,7 @@ def get_sina_content(link)
   
   p "retrieving content from sina with #{link} ...."
   content = open(link).read
-  doc = Nokogiri::HTML(content)
+  doc = Nokogiri::HTML(content, nil, 'gbk')
 
   artibody = doc.search('#artibody').first
   img = artibody.search('img').first
