@@ -147,8 +147,8 @@ def get_sina_content(link)
   img = img.attribute('src').text if img
   
   c = Hash.new
-  #c['content'] = artibody.to_html
-  c['content'] = "abc"
+  c['content'] = artibody.to_html.encode('utf-8')
+  #c['content'] = "abc"
   c['img'] = img
   
   p c['content'].encoding
