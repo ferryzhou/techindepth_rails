@@ -122,7 +122,7 @@ def get_sina_items
       nitems.push(nitem)
       p nitem.to_s
     rescue => e
-      p e.backtrace.join("\n")
+      puts e.backtrace.join("\n")
     end
   end
   
