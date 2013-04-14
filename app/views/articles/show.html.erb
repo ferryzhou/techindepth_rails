@@ -9,7 +9,7 @@
 </div>
 
 <p>
-  <%= @article.content.html_safe %>
+  <%= @article.content.nil? ? "" : @article.content.html_safe %>
 </p>
 
 
