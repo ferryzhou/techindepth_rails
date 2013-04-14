@@ -52,9 +52,13 @@ def get_163_content(link)
   el = doc.search("[text()*='下一页']").first
   
   if not el.nil? #multi page
+    begin
     link = "#{link[0...-5]}_all.html"
     content = open(link).read
     doc = Nokogiri::HTML(content)
+    rescue
+      puts "no _all link"
+    end
   end
   
   content = doc.search('#endText').first
