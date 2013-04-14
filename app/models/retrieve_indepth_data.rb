@@ -87,6 +87,8 @@ def get_sina_items
 
   doc = Nokogiri::HTML(open(page_url))
   
+  p doc.to_s
+  
   items = doc.search('ul li')
   
   p "found #{items.size} items"
