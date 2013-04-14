@@ -79,6 +79,7 @@ def get_163_content(link)
 end
 
 
+# gb2312
 def get_sina_items
 
   p 'get sina items .....'
