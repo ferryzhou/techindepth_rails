@@ -86,23 +86,34 @@ def get_sina_items
   page_url = 'http://roll.tech.sina.com.cn/iframe_famous/index.shtml'
 
   doc = Nokogiri::HTML(open(page_url))
-
-  nitems = doc.search('ul li').collect do |item|
+  
+  items = doc.search('ul li')
+  
+  p "found #{items.size} items"
+  
+  nitems = []
+  items.each do |item|
     p item.to_s
     nitem = Hash.new
-    a = item.search('a').first
-    p a.to_s
-    p item.search('span').first.to_s
-    nitem['source'] = 'sina'
-    nitem['link'] = a['href']
-    nitem['title'] = a.content
-    span_segs = item.search('span').first.content.split(' ')
-    nitem['magzine'] = span_segs.first.gsub(/[(《》杂志]/, '')
-    asegs = a['href'].split('/')
-    nitem['pubdate'] = DateTime.parse(asegs[-2] + 'T' + span_segs.last)
-    p nitem.to_s
-    nitem
+    begin
+      a = item.search('a').first
+      p a.to_s
+      p item.search('span').first.to_s
+      nitem['source'] = 'sina'
+      nitem['link'] = a['href']
+      nitem['title'] = a.content
+      span_segs = item.search('span').first.content.split(' ')
+      nitem['magzine'] = span_segs.first.gsub(/[(《》杂志]/, '')
+      asegs = a['href'].split('/')
+      nitem['pubdate'] = DateTime.parse(asegs[-2] + 'T' + span_segs.last)
+      nitems.push(nitem)
+      p nitem.to_s
+    rescue => e
+      p e.backtrace.join('\n')
+    end
   end
+  
+  p "extract #{nitems.size} items"
 
   nitems
 end
