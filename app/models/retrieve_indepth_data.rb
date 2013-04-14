@@ -149,6 +149,8 @@ def get_sina_content(link)
   c = Hash.new
   c['content'] = artibody.to_html
   c['img'] = img
+  
+  p c['content'].encoding
   c
 end
                                           
