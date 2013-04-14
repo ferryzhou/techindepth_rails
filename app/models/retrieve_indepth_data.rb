@@ -90,6 +90,7 @@ def get_sina_items
   nitems = doc.search('ul li').collect do |item|
     nitem = Hash.new
     a = item.search('a').first
+    p a.to_s
     nitem['source'] = 'sina'
     nitem['link'] = a['href']
     nitem['title'] = a.content
