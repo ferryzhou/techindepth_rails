@@ -88,6 +88,8 @@ def get_sina_items
 
   content = open(page_url).read
   
+  p content.encoding
+  
   doc = Nokogiri::HTML(content)
   
   p doc.to_s
