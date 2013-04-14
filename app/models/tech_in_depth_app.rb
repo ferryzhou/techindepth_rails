@@ -73,7 +73,7 @@ class TechInDepthApp
         article.save
         p 'success'
       rescue => e
-        p e.backtrace.join('\n')
+        p e.backtrace.join("\n")
       end
     end
   end
