@@ -81,6 +81,8 @@ end
 
 def get_sina_items
 
+  p 'get sina items .....'
+
   page_url = 'http://roll.tech.sina.com.cn/iframe_famous/index.shtml'
 
   doc = Nokogiri::HTML(open(page_url))
