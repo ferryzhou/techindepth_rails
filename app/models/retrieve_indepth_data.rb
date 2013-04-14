@@ -90,9 +90,10 @@ def get_sina_items
   
   p content.encoding
   
-  doc = Nokogiri::HTML(content)
+  doc = Nokogiri::HTML(content, nil, content.encoding.to_s)
   
   p doc.to_s
+  p doc.encoding
   
   items = doc.search('ul li')
   
