@@ -90,11 +90,11 @@ def get_sina_items
   
   p content.encoding
   
-  content = content.force_encoding('gb2312')
+  content = content.force_encoding('gbk')
   
   p content.encoding
   
-  doc = Nokogiri::HTML(content, nil, 'gb2312')
+  doc = Nokogiri::HTML(content, nil, 'gbk')
   
   p doc.to_s
   p doc.encoding
