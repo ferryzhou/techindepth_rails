@@ -46,6 +46,9 @@ def get_163_content(link)
   p "retrieving content from 163 with #{link} ...."
   content = open(link).read
   doc = Nokogiri::HTML(content)
+  
+  p doc.encoding.name
+
   el = doc.search("[text()*='下一页']").first
   
   if not el.nil? #multi page
@@ -136,6 +139,8 @@ def get_sina_content(link)
   p "retrieving content from sina with #{link} ...."
   content = open(link).read
   doc = Nokogiri::HTML(content, nil, 'gbk')
+  
+  p doc.encoding.name
 
   artibody = doc.search('#artibody').first
   img = artibody.search('img').first
